@@ -11,22 +11,17 @@ script:
   - docker run -e CI=true allamneni/react-docker-test npm test --coverage
 
 after_success:
-  - docker build -t multi-client ./client
-  - docker build -t multi-nginx ./nginx
-  - docker build -t multi-server ./server
-  - docker build -t multi-worker ./worker
+  - docker build -t dock-proj/multi-client ./client
+  - docker build -t dock-proj/multi-nginx ./nginx
+  - docker build -t dock-proj/multi-server ./server
+  - docker build -t dock-proj/multi-worker ./worker
   # Log in to the docker CLI
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin docker.io
   # Take those images and push them to docker hub
-  #- docker tag local-image:multi-client docker-react-proj:multi-client
-  - docker push allamnenis/docker-react-proj:multi-client
+  - docker push dock-proj/multi-client
+  - docker push dock-proj/multi-nginx
+  - docker push dock-proj/multi-server
+  - docker push dock-proj/multi-worker
+  
 
-  #- docker tag local-image:multi-nginx docker-react-proj:multi-nginx
-  - docker push allamnenis/docker-react-proj:multi-nginx
-
-  #- docker tag local-image:multi-server docker-react-proj:multi-server
-  - docker push allamnenis/docker-react-proj:multi-server
-
-  #- docker tag local-image:multi-worker docker-react-proj:multi-worker
-  - docker push allamnenis/docker-react-proj:multi-worker
-
+    
