@@ -1,0 +1,26 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t allamneni/react-docker-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true allamneni/react-docker-test npm test --coverage
+
+after_install:
+  - docker build -t allamneni/react-docker-client ./client
+  - docker build -t allamneni/react-docker-nginx ./nginx
+  - docker build -t allamneni/react-docker-server ./server
+  - docker build -t allamneni/react-docker-worker ./worker
+# take thise images and push to dokcer hub
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+# push to hub
+  - docker push allamneni/react-docker-client
+  - docker push allamneni/react-docker-nginx
+  - docker push allamneni/react-docker-server
+  - docker push allamneni/react-docker-worker
+
+    
