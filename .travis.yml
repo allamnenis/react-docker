@@ -18,14 +18,14 @@ after_success:
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Take those images and push them to docker hub
-#  - docker tag dock-proj/multi-client:latest allamnenis/dockerhub:dock-proj/multi-client
-  - docker push allamnenis/dockerhub:dock-proj/multi-client
+  - docker tag local-image:multi-client docker-react-proj:multi-client
+  - docker push docker-react-proj:multi-client
 
- # - docker tag dock-proj/multi-nginx:latest allamnenis/dockerhub:dock-proj/multi-nginx
-  - docker push allamnenis/dockerhub:dock-proj/multi-nginx
+  - docker tag local-image:multi-nginx docker-react-proj:multi-nginx
+  - docker push docker-react-proj:multi-nginx
 
- # - docker tag dock-proj/multi-server:latest allamnenis/dockerhub:dock-proj/multi-server
-  - docker push allamnenis/dockerhub:dock-proj/multi-server
+  - docker tag local-image:multi-server docker-react-proj:multi-server
+  - docker push docker-react-proj:multi-server
 
- # - docker tag dock-proj/multi-worker:latest allamnenis/dockerhub:dock-proj/multi-worker
-  - docker push allamnenis/dockerhub:dock-proj/multi-worker
+  - docker tag local-image:multi-worker docker-react-proj:multi-worker
+  - docker push docker-react-proj:multi-worker
